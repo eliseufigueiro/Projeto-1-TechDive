@@ -37,7 +37,7 @@ public class MenuOperacoes {
         Scanner sc = new Scanner(System.in);
 
         System.out.println("-----------------------------------------" + "\n" +
-                "BEM VINDO AO MENU DE OPERAÇÕES BANCÁRIAS" + "\n" +
+                "       MENU DE OPERAÇÕES BANCÁRIAS" + "\n" +
                 "-----------------------------------------" + "\n" +
                 "[1] SAQUE" + "\n" +
                 "[2] DEPÓSITO" + "\n" +
@@ -46,7 +46,7 @@ public class MenuOperacoes {
                 "[5] TRANSFERÊNCIA" + "\n" +
                 "[0] SAIR" + "\n" +
                 "-----------------------------------------");
-        System.out.print("DIGITE A OPÇÃO DESEJADA: ");
+        System.out.print("Digite a opção desejada: ");
         int menuOperacoesEscolha = sc.nextInt();
 
         return menuOperacoesEscolha; // retorna o numero escolhido.

@@ -52,15 +52,16 @@ public class MenuPrincipal {
         Scanner sc = new Scanner(System.in);
 
         System.out.println("-----------------------------------------" + "\n" +
-                "BEM VINDO AO MENU DO BANCO TECHDIVE" + "\n" +
+                "             BANCO TECHDIVE" + "\n" +
                 "-----------------------------------------" + "\n" +
                 "[1] CADASTRO CLIENTE" + "\n" +
                 "[2] OPERAÇÕES BANCÁRIAS" + "\n" +
                 "[3] RELATÓRIOS" + "\n" +
                 "[0] SAIR" + "\n" +
                 "-----------------------------------------");
-        System.out.print("DIGITE A OPÇÃO DESEJADA: ");
+        System.out.print("Digite a opção desejada: ");
         int menuPrincipalEscolha = sc.nextInt();
+        System.out.println("\n\n");
 
         return menuPrincipalEscolha; // retorna o numero escolhido.
     }

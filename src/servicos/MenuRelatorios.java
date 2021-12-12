@@ -34,7 +34,7 @@ public class MenuRelatorios {
         Scanner sc = new Scanner(System.in);
 
         System.out.println("-----------------------------------------" + "\n" +
-                "BEM VINDO AO MENU DE RELATÓRIOS" + "\n" +
+                "           MENU DE RELATÓRIOS" + "\n" +
                 "-----------------------------------------" + "\n" +
                 "[1] LISTAR TODAS AS CONTAS CADASTRADAS" + "\n" +
                 "[2] LISTAR TODAS AS CONTAS COM SALDO NEGATIVO" + "\n" +
@@ -42,7 +42,7 @@ public class MenuRelatorios {
                 "[4] LISTAR TODAS AS TRANSAÇÕES BANCÁRIAS POR CLIENTE" + "\n" +
                 "[0] SAIR" + "\n" +
                 "-----------------------------------------");
-        System.out.print("DIGITE A OPÇÃO DESEJADA: ");
+        System.out.print("Digite a opção desejada: ");
         int menuRelatoriosEscolha = sc.nextInt();
 
         return menuRelatoriosEscolha; // retorna o numero escolhido.

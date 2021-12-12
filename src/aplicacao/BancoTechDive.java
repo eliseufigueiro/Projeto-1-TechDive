@@ -1,7 +1,9 @@
 package aplicacao;
 
+import entidades.Conta;
 import servicos.MenuPrincipal;
 
+import java.util.ArrayList;
 import java.util.Locale;
 
 public class BancoTechDive {

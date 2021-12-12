@@ -1,33 +1,45 @@
 package entidades;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 public class Conta {
 
     //atributos
     private String nome;
     private String cpf;
     private double rendaMensal;
+    private int tipoConta;
     private static int conta;
     private int agencia;
     private double saldo;
+    private String data;
 
     //construtor sem depósito ínicial
+    public Conta() {
+    }
 
-    public Conta(String nome, String cpf, double rendaMensal, int conta, int agencia) {
+    public Conta(String nome, String cpf, double rendaMensal, int tipoConta, int agencia) {
         this.nome = nome;
         this.cpf = cpf;
         this.rendaMensal = rendaMensal;
-        nConta(conta);
+        this.tipoConta = tipoConta;
+        nConta();
         this.agencia = agencia;
+        dataAtual();
     }
 
     //construtor com depósito ínicial
-    public Conta(String nome, String cpf, double rendaMensal, int conta, int agencia, double depositoInicial) {
+    public Conta(String nome, String cpf, double rendaMensal, int tipoConta, int agencia, double depositoInicial) {
         this.nome = nome;
         this.cpf = cpf;
         this.rendaMensal = rendaMensal;
-        nConta(conta);
+        this.tipoConta = tipoConta;
+        nConta();
         this.agencia = agencia;
         deposito(depositoInicial);
+        dataAtual();
     }
 
     //Metodos
@@ -56,6 +68,14 @@ public class Conta {
         this.rendaMensal = rendaMensal;
     }
 
+    public int getTipoConta() {
+        return tipoConta;
+    }
+
+    public void setTipoConta(int tipoConta) {
+        this.tipoConta = tipoConta;
+    }
+
     public int getConta() {
 
         return conta;
@@ -76,6 +96,11 @@ public class Conta {
         return saldo;
     }
 
+    public String getData() {
+        return data;
+    }
+
+    //Metodos auxiliares
     public void deposito(double montante) {
 
         saldo += montante;
@@ -86,20 +111,29 @@ public class Conta {
         saldo -= montante;
     }
 
-    public int nConta(int conta) {
+    public int nConta() {
 
         return Conta.conta++;
     }
 
-    @Override
+    public String dataAtual() {
+        String dataAtual = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(Calendar.getInstance().getTime());
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(new Date());
+        int time = cal.get(Calendar.HOUR_OF_DAY);
+        return data = dataAtual;
+    }
+
     public String toString() {
         return "Conta {" +
-                "nome='" + nome + '\'' +
-                ", cpf=" + cpf +
-                ", rendaMensal=" + rendaMensal +
-                ", conta=" + conta +
-                ", agencia=" + agencia +
-                ", saldo=" + saldo +
-                '}';
+                "Nome=" + nome + '\'' +
+                ", CPF=" + cpf +
+                ", Renda Mensal=" + String.format("%.2f", rendaMensal) +
+                ", Tipo Conta=" + tipoConta +
+                ", Conta=" + conta +
+                ", Agência=" + agencia +
+                ", Saldo=" + String.format("%.2f", saldo) +
+                ", Data=" + data +
+                " }";
     }
 }

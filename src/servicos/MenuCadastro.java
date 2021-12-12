@@ -1,7 +1,9 @@
 package servicos;
 
 import entidades.Conta;
+import entidades.ContaCorrente;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class MenuCadastro {
@@ -10,17 +12,20 @@ public class MenuCadastro {
         switch (menuCadastroEscolha) {
 
             case 1:
-                Scanner sc = new Scanner(System.in);
-                Conta novaConta = null;
+                /*Scanner sc = new Scanner(System.in);
+                ContaCorrente novaConta = null;
                 String nome, cpf;
-                int agencia = 0, conta = 0;
+                int agencia = 0, conta = 0, tipoConta = 1;
 
+                System.out.println("-----------------------------------------");
                 System.out.println("CADASTRAR NOVO CLIENTE");
+                System.out.println("-----------------------------------------");
                 System.out.print("NOME COMPLETO: ");
                 nome = sc.nextLine();
 
                 boolean validaCPF;
                 do {
+                    System.out.println("-----------------------------------------");
                     System.out.print("CPF: ");
                     cpf = sc.next();
                     cpf = ValidaCPF.removeCaracteresEspeciais(cpf);
@@ -32,38 +37,46 @@ public class MenuCadastro {
                     }
                 } while (validaCPF == false);
 
+                System.out.println("-----------------------------------------");
                 System.out.print("RENDA MENSAL: ");
                 double rendaMensal = sc.nextDouble();
+
+                System.out.println("-----------------------------------------");
                 System.out.println(
                         "AGENCIAS:" + "\n" +
                                 "[1] 001 - Florianópolis" + "\n" +
                                 "[2] 002 - São José" + "\n"
                 );
-                System.out.print("ESCOLHA UMA AGENCIA: ");
+                System.out.print("Escolha um agência: ");
                 int escolhaAgencia = sc.nextInt();
                 if (escolhaAgencia == 1) {
-                    agencia = 001;
-                    conta = 100000;
+                    agencia = 1;
                 }
                 if (escolhaAgencia == 2) {
-                    agencia = 002;
-                    conta = 200000;
+                    agencia = 2;
                 }
 
+                System.out.println("-----------------------------------------");
                 System.out.print("DESEJA FAZER UM DEPÓSITO INICIAL? (S/N): ");
                 char resposta = sc.next().charAt(0);
                 if (resposta == 'S' || resposta == 's') {
                     System.out.print("ENTRE COM O VALOR INICIAL: ");
                     double depositoInicial = sc.nextDouble();
-                    novaConta = new Conta(nome, cpf, rendaMensal, conta, agencia, depositoInicial);
+                    novaConta = new ContaCorrente(nome, cpf, rendaMensal, tipoConta, agencia, depositoInicial);
+
                 } else {
-                    novaConta = new Conta(nome, cpf, rendaMensal, conta, agencia);
+                    novaConta = new ContaCorrente(nome, cpf, rendaMensal, tipoConta, agencia);
                 }
-                System.out.println(novaConta.toString());
+                System.out.println("-----------------------------------------");
+                System.out.println("Conta criada com sucesso!");
+                System.out.println(novaConta.toString());*/
+                ContaCorrente contaCorrente = new ContaCorrente();
+                contaCorrente.cadastroContaCorrent();
 
                 return false;
             case 2:
                 System.out.println("ATUALIZAR CADASTRO CLIENTE");
+
                 return false;
             case 0:
                 System.out.println("SAIR");
@@ -80,14 +93,14 @@ public class MenuCadastro {
         Scanner sc = new Scanner(System.in);
 
         System.out.println("-----------------------------------------" + "\n" +
-                "BEM VINDO AO MENU DE CADASTRO CLIENTE" + "\n" +
+                "        MENU DE CADASTRO CLIENTE" + "\n" +
                 "-----------------------------------------" + "\n" +
                 "[1] CADASTRAR NOVO CLIENTE" + "\n" +
                 "[2] ATUALIZAR CADASTRO CLIENTE" + "\n" +
-                "[0] SAIR" + "\n" +
-                "-----------------------------------------");
-        System.out.print("DIGITE A OPÇÃO DESEJADA: ");
+                "[0] SAIR" + "\n");
+        System.out.print("Digite a opção desejada: ");
         int menuCadastroEscolha = sc.nextInt();
+        System.out.println("");
 
         return menuCadastroEscolha; // retorna o numero escolhido.
     }
