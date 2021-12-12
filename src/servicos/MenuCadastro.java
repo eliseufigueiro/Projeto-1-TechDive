@@ -2,6 +2,8 @@ package servicos;
 
 import entidades.Conta;
 import entidades.ContaCorrente;
+import entidades.ContaInvestimento;
+import entidades.ContaPoupanca;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -9,69 +11,39 @@ import java.util.Scanner;
 public class MenuCadastro {
 
     public boolean menuCadastroEscolha(int menuCadastroEscolha) {
+        Scanner sc = new Scanner(System.in);
+
         switch (menuCadastroEscolha) {
-
             case 1:
-                /*Scanner sc = new Scanner(System.in);
-                ContaCorrente novaConta = null;
-                String nome, cpf;
-                int agencia = 0, conta = 0, tipoConta = 1;
-
-                System.out.println("-----------------------------------------");
-                System.out.println("CADASTRAR NOVO CLIENTE");
-                System.out.println("-----------------------------------------");
-                System.out.print("NOME COMPLETO: ");
-                nome = sc.nextLine();
-
-                boolean validaCPF;
-                do {
-                    System.out.println("-----------------------------------------");
-                    System.out.print("CPF: ");
-                    cpf = sc.next();
-                    cpf = ValidaCPF.removeCaracteresEspeciais(cpf);
-                    if (ValidaCPF.validaCPF(cpf)) {
-                        validaCPF = true;
-                    } else {
-                        System.out.println("ERRO, CPF INVÁLIDO, DIGITE NOVAMENTE!");
-                        validaCPF = false;
-                    }
-                } while (validaCPF == false);
-
-                System.out.println("-----------------------------------------");
-                System.out.print("RENDA MENSAL: ");
-                double rendaMensal = sc.nextDouble();
-
                 System.out.println("-----------------------------------------");
                 System.out.println(
-                        "AGENCIAS:" + "\n" +
-                                "[1] 001 - Florianópolis" + "\n" +
-                                "[2] 002 - São José" + "\n"
+                        "TIPO DE CONTA:" + "\n" +
+                                "[1] 001 - Conta Corrente" + "\n" +
+                                "[2] 002 - Conta Investimentos" + "\n" +
+                                "[3] 003 - Conta Poupança" + "\n"
                 );
-                System.out.print("Escolha um agência: ");
-                int escolhaAgencia = sc.nextInt();
-                if (escolhaAgencia == 1) {
-                    agencia = 1;
-                }
-                if (escolhaAgencia == 2) {
-                    agencia = 2;
-                }
+                System.out.print("Escolha o Tipo de Conta: ");
+                int tipoConta = sc.nextInt();
 
-                System.out.println("-----------------------------------------");
-                System.out.print("DESEJA FAZER UM DEPÓSITO INICIAL? (S/N): ");
-                char resposta = sc.next().charAt(0);
-                if (resposta == 'S' || resposta == 's') {
-                    System.out.print("ENTRE COM O VALOR INICIAL: ");
-                    double depositoInicial = sc.nextDouble();
-                    novaConta = new ContaCorrente(nome, cpf, rendaMensal, tipoConta, agencia, depositoInicial);
-
-                } else {
-                    novaConta = new ContaCorrente(nome, cpf, rendaMensal, tipoConta, agencia);
-                }
-                System.out.println("-----------------------------------------");
-                System.out.println("Conta criada com sucesso!");
-                System.out.println(novaConta.toString());*/
-                ContaCorrente contaCorrente = new ContaCorrente();
-                contaCorrente.cadastroContaCorrent();
+                do {
+                    switch (tipoConta) {
+                        case 1:
+                            ContaCorrente contaCorrente = new ContaCorrente();
+                            contaCorrente.cadastroContaCorrente();
+                            return false;
+                        case 2:
+                            ContaInvestimento contaInvestimento = new ContaInvestimento();
+                            contaInvestimento.cadastroContaInvestimentos();
+                            return false;
+                        case 3:
+                            ContaPoupanca contaPoupanca = new ContaPoupanca();
+                            contaPoupanca.cadastroContaPoupanca();
+                            return false;
+                        default:
+                            System.out.print("Tipo de conta inválido, Digite novamente: ");
+                            tipoConta = sc.nextInt();
+                    }
+                } while (tipoConta != 1 || tipoConta != 2 || tipoConta != 3);
 
                 return false;
             case 2:

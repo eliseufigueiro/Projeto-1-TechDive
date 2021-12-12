@@ -134,6 +134,6 @@ public class Conta {
                 ", Agência=" + agencia +
                 ", Saldo=" + String.format("%.2f", saldo) +
                 ", Data=" + data +
-                " }";
+                "}" + "\n";
     }
 }

@@ -2,6 +2,7 @@ package entidades;
 
 import servicos.ValidaCPF;
 
+import java.sql.Struct;
 import java.util.Scanner;
 
 public class ContaCorrente extends Conta {
@@ -17,7 +18,7 @@ public class ContaCorrente extends Conta {
         super(nome, cpf, rendaMensal, tipoConta, agencia, depositoInicial);
     }
 
-    public void cadastroContaCorrent() {
+    public void cadastroContaCorrente() {
         Scanner sc = new Scanner(System.in);
         ContaCorrente novaConta = null;
         String nome, cpf;
@@ -53,14 +54,20 @@ public class ContaCorrente extends Conta {
                         "[1] 001 - Florianópolis" + "\n" +
                         "[2] 002 - São José" + "\n"
         );
-        System.out.print("Escolha um agência: ");
-        int escolhaAgencia = sc.nextInt();
-        if (escolhaAgencia == 1) {
-            agencia = 1;
-        }
-        if (escolhaAgencia == 2) {
-            agencia = 2;
-        }
+
+        String escolhaAgencia = "False";
+        do {
+            System.out.print("Escolha um agência: ");
+            agencia = sc.nextInt();
+            if (agencia == 1) {
+                escolhaAgencia = "true";
+            }
+            if (agencia == 2) {
+                escolhaAgencia = "true";
+            }
+
+        } while (escolhaAgencia == "False");
+
 
         System.out.println("-----------------------------------------");
         System.out.print("DESEJA FAZER UM DEPÓSITO INICIAL? (S/N): ");
@@ -88,6 +95,6 @@ public class ContaCorrente extends Conta {
                 ", Agência=" + getAgencia() +
                 ", Saldo=" + String.format("%.2f", getSaldo()) +
                 ", Data=" + getData() +
-                " }";
+                "}" + "\n";
     }
 }
