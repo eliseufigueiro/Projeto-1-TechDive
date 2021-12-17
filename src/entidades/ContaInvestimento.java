@@ -19,7 +19,7 @@ public class ContaInvestimento extends Conta {
 
     public void cadastroContaInvestimentos() {
         Scanner sc = new Scanner(System.in);
-        ContaInvestimento novaConta = null;
+        ContaInvestimento novaContaInvestimentos = null;
         String nome, cpf;
         int agencia = 0, conta = 0, tipoConta = 2;
 
@@ -73,14 +73,14 @@ public class ContaInvestimento extends Conta {
         if (resposta == 'S' || resposta == 's') {
             System.out.print("ENTRE COM O VALOR INICIAL: ");
             double depositoInicial = sc.nextDouble();
-            novaConta = new ContaInvestimento(nome, cpf, rendaMensal, tipoConta, agencia, depositoInicial);
+            novaContaInvestimentos = new ContaInvestimento(nome, cpf, rendaMensal, tipoConta, agencia, depositoInicial);
 
         } else {
-            novaConta = new ContaInvestimento(nome, cpf, rendaMensal, tipoConta, agencia);
+            novaContaInvestimentos = new ContaInvestimento(nome, cpf, rendaMensal, tipoConta, agencia);
         }
+
         System.out.println("-----------------------------------------");
         System.out.println("Conta criada com sucesso!");
-        System.out.println(novaConta.toString());
     }
 
     @Override

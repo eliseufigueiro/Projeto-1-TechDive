@@ -19,7 +19,7 @@ public class ContaPoupanca extends Conta {
 
     public void cadastroContaPoupanca() {
         Scanner sc = new Scanner(System.in);
-        ContaCorrente novaConta = null;
+        ContaCorrente novaContaPoupanca = null;
         String nome, cpf;
         int agencia = 0, conta = 0, tipoConta = 1;
 
@@ -73,14 +73,14 @@ public class ContaPoupanca extends Conta {
         if (resposta == 'S' || resposta == 's') {
             System.out.print("ENTRE COM O VALOR INICIAL: ");
             double depositoInicial = sc.nextDouble();
-            novaConta = new ContaCorrente(nome, cpf, rendaMensal, tipoConta, agencia, depositoInicial);
+            novaContaPoupanca = new ContaCorrente(nome, cpf, rendaMensal, tipoConta, agencia, depositoInicial);
 
         } else {
-            novaConta = new ContaCorrente(nome, cpf, rendaMensal, tipoConta, agencia);
+            novaContaPoupanca = new ContaCorrente(nome, cpf, rendaMensal, tipoConta, agencia);
         }
+
         System.out.println("-----------------------------------------");
         System.out.println("Conta criada com sucesso!");
-        System.out.println(novaConta.toString());
     }
 
     @Override

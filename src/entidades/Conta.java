@@ -11,7 +11,7 @@ public class Conta {
     private String cpf;
     private double rendaMensal;
     private int tipoConta;
-    private static int conta;
+    private int conta;
     private int agencia;
     private double saldo;
     private String data;
@@ -38,7 +38,7 @@ public class Conta {
         this.tipoConta = tipoConta;
         nConta();
         this.agencia = agencia;
-        deposito(depositoInicial);
+        deposito(conta, depositoInicial);
         dataAtual();
     }
 
@@ -69,10 +69,12 @@ public class Conta {
     }
 
     public int getTipoConta() {
+
         return tipoConta;
     }
 
     public void setTipoConta(int tipoConta) {
+
         this.tipoConta = tipoConta;
     }
 
@@ -101,7 +103,7 @@ public class Conta {
     }
 
     //Metodos auxiliares
-    public void deposito(double montante) {
+    public void deposito(int conta, double montante) {
 
         saldo += montante;
     }
@@ -113,7 +115,7 @@ public class Conta {
 
     public int nConta() {
 
-        return Conta.conta++;
+        return conta++;
     }
 
     public String dataAtual() {
