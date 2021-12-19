@@ -6,7 +6,6 @@ import java.util.Date;
 
 public class Conta {
 
-
     //atributos
     private String nome;
     private String cpf;
@@ -17,6 +16,7 @@ public class Conta {
     private String agencia;
     private double saldo;
     private String data;
+    private double limiteDeConta = 0;
 
     //construtor sem depósito ínicial
     public Conta() {
@@ -39,7 +39,7 @@ public class Conta {
         this.rendaMensal = rendaMensal;
         this.tipoConta = tipoConta;
         this.agencia = agencia;
-        deposito(conta, depositoInicial);
+        deposito(depositoInicial);
         dataAtual();
         AddNumeroConta();
     }
@@ -109,6 +109,14 @@ public class Conta {
         return data;
     }
 
+    public double getLimiteDeConta() {
+        return limiteDeConta;
+    }
+
+    public void setLimiteDeConta(double limiteDeConta) {
+        this.limiteDeConta = limiteDeConta;
+    }
+
     //Metodos auxiliares
     public void AddNumeroConta() {
 
@@ -120,7 +128,7 @@ public class Conta {
         this.saldo -= montante;
     }
 
-    public void deposito(int conta, double montante) {
+    public void deposito(double montante) {
 
         this.saldo += montante;
     }
@@ -130,10 +138,6 @@ public class Conta {
     }
 
     public void transferir() {
-
-    }
-
-    public void alterarDadosCadastrais() {
 
     }
 

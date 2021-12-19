@@ -5,9 +5,9 @@ import entidades.ContaCorrente;
 import entidades.ContaInvestimento;
 import entidades.ContaPoupanca;
 import servicos.Menus;
+import servicos.Transacoes;
 import servicos.ValidaCPF;
 
-import javax.sound.midi.Soundbank;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -19,21 +19,10 @@ public class BancoTechDive {
 
         Locale.setDefault(Locale.US);
         List<Conta> contas = new ArrayList<>();//Lista para guardar as contas
+        List<Transacoes> transacoes = new ArrayList<>();//Lista para guardar as transações
 
         Scanner sc = new Scanner(System.in);
         Menus menu = new Menus();
-
-        //Base para testes
-        ContaCorrente c1 = new ContaCorrente("Eliseu Figueiro", "78945612312", 5100, "Conta Corrente", "Florianópolis", 320);
-        ContaPoupanca c2 = new ContaPoupanca("Eliseu Selbach", "78945678978", 3000, "Conta Popança", "Florianópolis", 320);
-        ContaPoupanca c3 = new ContaPoupanca("João da Silva", "14785236987", 2500, "Conta Popança", "Florianópolis", 320);
-        ContaInvestimento c4 = new ContaInvestimento("Jairo Mattos", "11111122233", 15000, "Conta Investimento", "Florianópolis", 320);
-        ContaInvestimento c5 = new ContaInvestimento("Renata Figueiro", "25896314789", 3200, "Conta Investimento", "Florianópolis", 320);
-        contas.add(c1);
-        contas.add(c2);
-        contas.add(c3);
-        contas.add(c4);
-        contas.add(c5);
 
         //System.out.println("Olá, Mundo");
 
@@ -45,13 +34,13 @@ public class BancoTechDive {
 
         do {
             menu.menuPrincipal();
-            System.out.print("Digite a opção desejada: ");
+            System.out.print("*  Digite a opção desejada: ");
             opcaoMenuPrincipal = sc.nextInt();
             switch (opcaoMenuPrincipal) {
                 case 1:
                     do {
                         menu.menuCadastro();
-                        System.out.print("Digite a opção desejada: ");
+                        System.out.print("*  Digite a opção desejada: ");
                         opcaoMenuCadastro = sc.nextInt();
                         switch (opcaoMenuCadastro) {
                             case 1:
@@ -60,13 +49,13 @@ public class BancoTechDive {
                                 int tipoDeConta;
                                 double rendaMensal;
 
-                                System.out.print("Nome completo: ");
+                                System.out.print("*  Nome completo: ");
                                 sc.nextLine();
                                 nome = sc.nextLine();
 
                                 boolean validaCPF;
                                 do {
-                                    System.out.print("CPF: ");
+                                    System.out.print("*  CPF: ");
                                     cpf = sc.nextLine();
                                     cpf = ValidaCPF.removeCaracteresEspeciais(cpf);
                                     if (ValidaCPF.validaCPF(cpf)) {
@@ -77,12 +66,12 @@ public class BancoTechDive {
                                     }
                                 } while (validaCPF == false);
 
-                                System.out.print("Renda mensal: ");
+                                System.out.print("*  Renda mensal: ");
                                 rendaMensal = sc.nextDouble();
 
                                 boolean opcaoAgencia = false;
                                 do {
-                                    System.out.print("Escolha sua Agência: [1] - Florianópolis, [2] - São José: ");
+                                    System.out.print("*  Escolha sua Agência: [1] - Florianópolis, [2] - São José: ");
                                     int agenciaOpt = sc.nextInt();
                                     if (agenciaOpt == 1) {
                                         agencia = "Florianópolis";
@@ -94,66 +83,81 @@ public class BancoTechDive {
                                     }
                                 } while (opcaoAgencia != true);
 
-                                System.out.print("Escolha o Tipo de Conta: [1]-Conta Corrente, [2]-Conta Investimento, [3]-Conta Poupança: ");
+                                System.out.print("*  Escolha o Tipo de Conta: [1]-Conta Corrente, [2]-Conta Investimento, [3]-Conta Poupança: ");
                                 tipoDeConta = sc.nextInt();
 
                                 if (tipoDeConta == 1) {
                                     ContaCorrente.numerocontas++;//Contador para toral de contas criadas
                                     ContaCorrente cc;// Instância a classe
+                                    Transacoes.numeroTransações++;
+                                    Transacoes tt = null;
                                     tipoConta = "Conta Corrente";
 
-                                    System.out.print("Deseja fazer um depósito ínicial? (S/N): ");
+                                    System.out.print("*  Deseja fazer um depósito ínicial? (S/N): ");
                                     char resposta = sc.next().charAt(0);
                                     if (resposta == 'S' || resposta == 's') {
                                         System.out.print("Entre com o valor ínicial: ");
                                         double depositoInicial = sc.nextDouble();
                                         cc = new ContaCorrente(nome, cpf, rendaMensal, tipoConta, agencia, depositoInicial);
+                                        tt = new Transacoes("SAQUE", null, depositoInicial);
                                     } else {
                                         cc = new ContaCorrente(nome, cpf, rendaMensal, tipoConta, agencia);
                                     }
                                     contas.add(cc);
+                                    transacoes.add(tt);
                                 }
                                 if (tipoDeConta == 2) {
                                     ContaInvestimento.numerocontas++;//Contador para toral de contas criadas
                                     ContaInvestimento ci;// Instância a classe
+                                    Transacoes.numeroTransações++;
+                                    Transacoes tt = null;
                                     tipoConta = "Conta Investimentos";
 
-                                    System.out.print("Deseja fazer um depósito ínicial? (S/N): ");
+                                    System.out.print("*  Deseja fazer um depósito ínicial? (S/N): ");
                                     char resposta = sc.next().charAt(0);
                                     if (resposta == 'S' || resposta == 's') {
-                                        System.out.print("Entre com o valor ínicial: ");
+                                        System.out.print("*  Entre com o valor ínicial: ");
                                         double depositoInicial = sc.nextDouble();
                                         ci = new ContaInvestimento(nome, cpf, rendaMensal, tipoConta, agencia, depositoInicial);
+                                        tt = new Transacoes("SAQUE", null, depositoInicial);
                                     } else {
                                         ci = new ContaInvestimento(nome, cpf, rendaMensal, tipoConta, agencia);
                                     }
                                     contas.add(ci);
+                                    transacoes.add(tt);
                                 }
                                 if (tipoDeConta == 3) {
                                     ContaPoupanca.numerocontas++;//Contador para toral de contas criadas
                                     ContaPoupanca cp;// Instância a classe
+                                    Transacoes.numeroTransações++;
+                                    Transacoes tt = null;
                                     tipoConta = "Conta Poupança";
 
-                                    System.out.print("Deseja fazer um depósito ínicial? (s/n): ");
+                                    System.out.print("*  Deseja fazer um depósito ínicial? (s/n): ");
                                     char resposta = sc.next().charAt(0);
                                     if (resposta == 'S' || resposta == 's') {
-                                        System.out.print("Entre com o valor ínicial: ");
+                                        System.out.print("*  Entre com o valor ínicial: ");
                                         double depositoInicial = sc.nextDouble();
                                         cp = new ContaPoupanca(nome, cpf, rendaMensal, tipoConta, agencia, depositoInicial);
+                                        tt = new Transacoes("DEPÓSITO", null, depositoInicial);
                                     } else {
                                         cp = new ContaPoupanca(nome, cpf, rendaMensal, tipoConta, agencia);
                                     }
                                     contas.add(cp);
+                                    transacoes.add(tt);
                                 }
 
-                                System.out.println("Conta criada com sucesso!");
+                                System.out.println("*  Conta criada com sucesso!");
+                                System.out.println("------------------------------------------");
+                                System.out.println("");
                                 System.out.println(contas);
                                 break;
                             case 2:
                                 if (contas.isEmpty() == true) {
-                                    System.out.println("\nNão há contas cadastradas!");
+                                    System.out.println("\n*  Não há contas cadastradas!");
+                                    System.out.println("------------------------------------------");
                                 } else {
-                                    System.out.print("\nDigite o número da conta: ");
+                                    System.out.print("\n*  Digite o número da conta: ");
                                     int nConta = sc.nextInt();
                                     nConta--;
 
@@ -162,13 +166,13 @@ public class BancoTechDive {
                                     System.out.println("*  " + aux.getTipoConta());
                                     System.out.println("*  Nome: " + aux.getNome());
                                     System.out.println("*  CPF: " + aux.getCpf());
-                                    System.out.println("*  Renda Mensal: " + aux.getRendaMensal());
+                                    System.out.println("*  Renda Mensal: " + String.format("%.2f", aux.getRendaMensal()));
                                     System.out.println("*  Agência: " + aux.getAgencia());
                                     System.out.println("*  Conta: " + aux.getConta());
                                     System.out.println("*  Saldo: " + aux.getSaldo());
                                     System.out.println("------------------------------------------");
 
-                                    System.out.print("Deseja atualizar o Cadastro? (s/n): ");
+                                    System.out.print("*  Deseja atualizar o Cadastro? (s/n): ");
                                     char respostaAtualizar = sc.next().charAt(0);
                                     System.out.println("");
                                     if (respostaAtualizar == 'S' || respostaAtualizar == 's') {
@@ -191,7 +195,7 @@ public class BancoTechDive {
                                                     opcaoConta = true;
                                                     break;
                                                 default:
-                                                    System.out.println("Agência Inválida!");
+                                                    System.out.println("Tipo de Conta Inválida!");
                                                     opcaoConta = false;
                                             }
                                         } while (opcaoConta != true);
@@ -229,13 +233,15 @@ public class BancoTechDive {
                                     nConta--;
 
                                     Conta aux = contas.get(nConta);
+                                    ContaCorrente aux1 = null;
                                     System.out.println("");
                                     System.out.println("*  " + aux.getTipoConta());
                                     System.out.println("*  Nome: " + aux.getNome());
                                     System.out.println("*  CPF: " + aux.getCpf());
-                                    System.out.println("*  Renda Mensal: " + aux.getRendaMensal());
+                                    System.out.println("*  Renda Mensal: " + String.format("%.2f", aux.getRendaMensal()));
                                     System.out.println("*  Agência: " + aux.getAgencia());
                                     System.out.println("*  Conta: " + aux.getConta());
+                                    System.out.println("*  Cheque Especial: " + String.format("%.2f", aux1.getValorChequeEspecial()));
                                     System.out.println("*  Saldo: " + aux.getSaldo());
                                     System.out.println("------------------------------------------");
 
@@ -249,29 +255,221 @@ public class BancoTechDive {
                                 }
                                 break;
                             case 0:
-                                System.out.println("\nFINALIZANDO SISTEMA");
+                                System.out.println("\nVOLTAR MENU PRINCIPAL");
                                 break;
                             default:
                                 System.out.println("\nOPÇÃO INVÁLIDA!");
+                                break;
                         }
                     } while (opcaoMenuCadastro != 0);
                     break;
                 case 2:
-                    System.out.println("TRANSAÇÕES");
-                    break;
-                case 3:
-                    System.out.println("RELATÓRIOS");
-                    break;
-                case 0:
-                    System.out.println("\nFINALIZANDO SISTEMA");
-                    break;
-                default:
-                    System.out.println("\nOPÇÃO INVÁLIDA!");
-            }
-        } while (opcaoMenuPrincipal != 0);
-    }
+                    do {
+                        menu.menuTransacoes();
+                        System.out.print("\n*  Digite a opção desejada: ");
+                        opcapMenuTransacoes = sc.nextInt();
+                        switch (opcapMenuTransacoes) {
+                            case 1://Saque
+                                if (contas.isEmpty() == true) {
+                                    System.out.println("\n*  Não há contas cadastradas!");
+                                    System.out.println("------------------------------------------");
+                                } else {
+                                    System.out.print("*  Digite o número da conta para Saque: ");
+                                    int nConta = sc.nextInt();
+                                    nConta--;
+                                    int contasTotal = 0;
+                                    for (int i = 0; i < contas.size(); i++) {
+                                        contasTotal = i++;
+                                    }
+                                    if (nConta > contasTotal) {
+                                        System.out.println("*  Conta inexistente Saque cancelado!");
+                                        System.out.println("------------------------------------------");
+                                    } else {
+                                        System.out.print("*  Digite o valor para Saque: R$ ");
+                                        double montante = sc.nextDouble();
+                                        Conta aux = contas.get(nConta);
+                                        if (montante > aux.getSaldo() + aux.getLimiteDeConta()) {
+                                            System.out.println("*  Saldo insuficiente!");
+                                            System.out.println("*  Saldo em Conta: " + String.format("%.2f", aux.getSaldo()));
+                                            System.out.println("------------------------------------------");
+                                        } else {
+                                            Transacoes.numeroTransações++;
+                                            Transacoes tt = null;
+                                            aux.saque(montante);
+                                            tt = new Transacoes("SAQUE", null, montante);
+                                            transacoes.add(tt);
+                                            System.out.println("------------------------------------------");
+                                            System.out.println("*  Saque efetuado com SUCESSO!");
+                                            System.out.println("*  Saldo em Conta: " + String.format("%.2f", aux.getSaldo()));
+                                            System.out.println("------------------------------------------");
+                                        }
+                                    }
+                                }
+                                break;
+                            case 2://Depósito
+                                if (contas.isEmpty() == true) {
+                                    System.out.println("\n*  Não há contas cadastradas!");
+                                    System.out.println("------------------------------------------");
+                                } else {
+                                    System.out.print("*  Digite o número da conta para Saque: ");
+                                    int nConta = sc.nextInt();
+                                    nConta--;
+                                    int contasTotal = 0;
+                                    for (int i = 0; i < contas.size(); i++) {
+                                        contasTotal = i++;
+                                    }
+                                    if (nConta > contasTotal) {
+                                        System.out.println("*  Conta inexistente Depósito cancelado!");
+                                        System.out.println("------------------------------------------");
+                                    } else {
+                                        Conta aux = contas.get(nConta);
+                                        System.out.println("------------------------------------------");
+                                        System.out.println("*  Saldo em Conta: " + String.format("%.2f", aux.getSaldo()));
+                                        System.out.print("*  Digite o valor para Depósito: R$ ");
+                                        double montante = sc.nextDouble();
+                                        aux.deposito(montante);
+                                        System.out.println("------------------------------------------");
+                                        System.out.println("*  Depósito efetuado com SUCESSO!");
+                                        System.out.println("*  Saldo em Conta: " + String.format("%.2f", aux.getSaldo()));
+                                        System.out.println("------------------------------------------");
+                                    }
+                                }
+                                break;
+                            case 3://Saldo
+                                if (contas.isEmpty() == true) {
+                                    System.out.println("\n*  Não há contas cadastradas!");
+                                    System.out.println("------------------------------------------");
+                                } else {
+                                    System.out.print("*  Digite o número da conta para visualizar o Saldo: ");
+                                    int nConta = sc.nextInt();
+                                    nConta--;
+                                    Conta aux = contas.get(nConta);
+                                    System.out.println("*  Saldo em Conta: " + aux.getSaldo());
+                                    System.out.println("------------------------------------------");
+                                }
+                                break;
+                            case 4://Extrato
+                                if (contas.isEmpty() == true) {
+                                    System.out.println("\n*  Não há contas cadastradas!");
+                                    System.out.println("------------------------------------------");
+                                } else {
+                                    System.out.print("*  Digite o número da conta para Extrato: ");
+                                    int nConta = sc.nextInt();
+                                    System.out.println("------------------------------------------");
+                                    nConta--;
+                                    Conta aux = contas.get(nConta);
+                                    if (aux instanceof ContaCorrente) {
+                                        System.out.println("\n" +
+                                                "======================================\n" +
+                                                "        EXTRATO CONTA CORRENTE        \n" +
+                                                "======================================\n" +
+                                                "  *  NOME: " + aux.getNome() + "\n" +
+                                                "  *  CPF: " + aux.getCpf() + "\n" +
+                                                "  *  AGÊNCIA: " + aux.getAgencia() + "\n" +
+                                                "  *  CONTA: " + aux.getConta() + "\n" +
+                                                "  *  TIPO CONTA: " + aux.getTipoConta() + "\n" +
+                                                "  *  RENDA MENSAL: " + String.format("%.2f", aux.getRendaMensal()) + "\n" +
+                                                "  *  CHEQUE ESPECIAL: " + String.format("%.2f", ((ContaCorrente) aux).saldoChequeEspecial()) + "\n" +
+                                                "  *  SALDO: " + aux.getSaldo() + "\n" +
+                                                "  *  DATA ABERTURA: " + aux.getData() + "\n" +
+                                                "======================================\n"
+                                        );
+                                    } else if (aux instanceof ContaInvestimento) {
+                                        System.out.println("\n" +
+                                                "======================================\n" +
+                                                "      EXTRATO CONTA INVESTIMENTO      \n" +
+                                                "======================================\n" +
+                                                "  *  NOME: " + aux.getNome() + "\n" +
+                                                "  *  CPF: " + aux.getCpf() + "\n" +
+                                                "  *  AGÊNCIA: " + aux.getAgencia() + "\n" +
+                                                "  *  CONTA: " + aux.getConta() + "\n" +
+                                                "  *  TIPO CONTA: " + aux.getTipoConta() + "\n" +
+                                                "  *  RENDA MENSAL: " + String.format("%.2f", aux.getRendaMensal()) + "\n" +
+                                                "  *  INVESTIMENTOS: " + String.format("%.2f", ((ContaCorrente) aux).saldoChequeEspecial()) + "\n" +
+                                                "  *  SALDO: " + aux.getSaldo() + "\n" +
+                                                "  *  DATA ABERTURA: " + aux.getData() + "\n" +
+                                                "======================================\n"
+                                        );
+                                    } else {
+                                        System.out.println("\n" +
+                                                "======================================\n" +
+                                                "        EXTRATO CONTA POUPANÇA        \n" +
+                                                "======================================\n" +
+                                                "  *  NOME: " + aux.getNome() + "\n" +
+                                                "  *  CPF: " + aux.getCpf() + "\n" +
+                                                "  *  AGÊNCIA: " + aux.getAgencia() + "\n" +
+                                                "  *  CONTA: " + aux.getConta() + "\n" +
+                                                "  *  TIPO CONTA: " + aux.getTipoConta() + "\n" +
+                                                "  *  RENDA MENSAL: " + String.format("%.2f", aux.getRendaMensal()) + "\n" +
+                                                "  *  RENDIMENTO: " + String.format("%.2f", ((ContaCorrente) aux).saldoChequeEspecial()) + "\n" +
+                                                "  *  SALDO: " + aux.getSaldo() + "\n" +
+                                                "  *  DATA ABERTURA: " + aux.getData() + "\n" +
+                                                "======================================\n"
+                                        );
+                                    }
+                                }
+                                break;
+                            case 5:
+                                if (contas.isEmpty() == true) {
+                                    System.out.println("\n*  Não há contas cadastradas!");
+                                    System.out.println("------------------------------------------");
+                                } else {
+                                    System.out.print("*  Digite o número da Conta Origem: ");
+                                    int nContaOrigem = sc.nextInt();
+                                    nContaOrigem--;
+                                    System.out.print("*  Digite o número da Conta Destino: ");
+                                    int nContaDestino = sc.nextInt();
+                                    nContaDestino--;
+                                    System.out.print("*  Digite o valor do PIX: ");
+                                    double valorPix = sc.nextDouble();
 
-    //Metodos de ajuda
+                                    Conta auxContaOrigem = contas.get(nContaOrigem);
+                                    Conta auxContaDestino = contas.get(nContaDestino);
+
+                                    auxContaOrigem.saque(valorPix);
+                                    auxContaOrigem.deposito(valorPix);
+                                }
+                                    break;
+                                    case 0:
+                                        System.out.println("\nVOLTAR MENU PRINCIPAL");
+                                        break;
+                                    default:
+                                        System.out.println("\nOPÇÃO INVÁLIDA!");
+                                        break;
+                                }
+                        }
+                        while (opcapMenuTransacoes != 0) ;
+                        break;
+                        case 3:
+                            menu.menuRelatorios();
 
 
-}//FIM
+                    /*if (contas.isEmpty() == true) {
+                        System.out.println("\n*  Não há contas cadastradas!");
+                        System.out.println("------------------------------------------");
+                    } else {
+                        System.out.print("*  Digite o número da conta das Transações: ");
+                        int nConta = sc.nextInt();
+                        nConta--;
+                        int contasTotal = 0;
+                        for (int i = 0; i < transacoes.size(); i++) {
+                            contasTotal = i++;
+                            System.out.println(transacoes);
+                        }
+                    }*/
+
+
+                            break;
+                        case 0:
+                            System.out.println("\nFINALIZANDO SISTEMA");
+                            break;
+                        default:
+                            System.out.println("\nOPÇÃO INVÁLIDA!");
+                    }
+            } while (opcaoMenuPrincipal != 0) ;
+        }
+
+//Metodos de ajuda
+
+
+    }//FIM

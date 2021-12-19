@@ -19,15 +19,17 @@ public class ContaPoupanca extends Conta {
 
     @Override
     public String toString() {
-        return "Conta Poupança {" +
-                "Nome=" + getNome() + '\'' +
-                ", CPF=" + getCpf() +
-                ", Renda Mensal=" + String.format("%.2f", getRendaMensal()) +
-                ", Conta=" + numerocontas +
-                ", Agência=" + getAgencia() +
-                ", Número da Conta=" + getConta() +
-                ", Saldo=" + String.format("%.2f", getSaldo()) +
-                ", Data=" + getData() +
-                "}" + "\n";
+        return "======================================\n" +
+                "         EXTRATO CONTA POUPANÇA        \n" +
+                " ======================================\n" +
+                "  *  NOME: " + getNome() + "\n" +
+                "  *  CPF: " + getCpf() + "\n" +
+                "  *  AGÊNCIA: " + getAgencia() + "\n" +
+                "  *  CONTA: " + getConta() + "\n" +
+                "  *  TIPO CONTA: " + getTipoConta() + "\n" +
+                "  *  RENDA MENSAL: " + String.format("%.2f", getRendaMensal()) + "\n" +
+                "  *  SALDO: " + getSaldo() + "\n" +
+                "  *  DATA ABERTURA CONTA: " + getData() + "\n" +
+                "======================================\n";
     }
 }
