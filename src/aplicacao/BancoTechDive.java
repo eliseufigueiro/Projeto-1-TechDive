@@ -2,9 +2,12 @@ package aplicacao;
 
 import entidades.Conta;
 import entidades.ContaCorrente;
+import entidades.ContaInvestimento;
+import entidades.ContaPoupanca;
 import servicos.Menus;
 import servicos.ValidaCPF;
 
+import javax.sound.midi.Soundbank;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -19,6 +22,18 @@ public class BancoTechDive {
 
         Scanner sc = new Scanner(System.in);
         Menus menu = new Menus();
+
+        //Base para testes
+        ContaCorrente c1 = new ContaCorrente("Eliseu Figueiro", "78945612312", 5100, "Conta Corrente", "Florianópolis", 320);
+        ContaPoupanca c2 = new ContaPoupanca("Eliseu Selbach", "78945678978", 3000, "Conta Popança", "Florianópolis", 320);
+        ContaPoupanca c3 = new ContaPoupanca("João da Silva", "14785236987", 2500, "Conta Popança", "Florianópolis", 320);
+        ContaInvestimento c4 = new ContaInvestimento("Jairo Mattos", "11111122233", 15000, "Conta Investimento", "Florianópolis", 320);
+        ContaInvestimento c5 = new ContaInvestimento("Renata Figueiro", "25896314789", 3200, "Conta Investimento", "Florianópolis", 320);
+        contas.add(c1);
+        contas.add(c2);
+        contas.add(c3);
+        contas.add(c4);
+        contas.add(c5);
 
         //System.out.println("Olá, Mundo");
 
@@ -40,19 +55,13 @@ public class BancoTechDive {
                         opcaoMenuCadastro = sc.nextInt();
                         switch (opcaoMenuCadastro) {
                             case 1:
-                                ContaCorrente cc = new ContaCorrente();
-
                                 //Variavéis passadas no construtor
-                                String nome, cpf;
-                                int agencia = 0, tipoConta = 0;
+                                String nome, cpf, tipoConta, agencia = "";
+                                int tipoDeConta;
                                 double rendaMensal;
 
-                                System.out.println("");
-                                System.out.println("******************************************");
-                                System.out.println("*         CADASTRAR NOVO CLIENTE         *");
-                                System.out.println("******************************************");
-                                System.out.println("");
                                 System.out.print("Nome completo: ");
+                                sc.nextLine();
                                 nome = sc.nextLine();
 
                                 boolean validaCPF;
@@ -74,35 +83,170 @@ public class BancoTechDive {
                                 boolean opcaoAgencia = false;
                                 do {
                                     System.out.print("Escolha sua Agência: [1] - Florianópolis, [2] - São José: ");
-                                    agencia = sc.nextInt();
-                                    if (agencia == 1) {
+                                    int agenciaOpt = sc.nextInt();
+                                    if (agenciaOpt == 1) {
+                                        agencia = "Florianópolis";
                                         opcaoAgencia = true;
                                     }
-                                    if (agencia == 2) {
+                                    if (agenciaOpt == 2) {
+                                        agencia = "São José";
                                         opcaoAgencia = true;
                                     }
                                 } while (opcaoAgencia != true);
 
-                                System.out.print("Deseja fazer um depósito ínicial? (S/N): ");
-                                char resposta = sc.next().charAt(0);
-                                if (resposta == 'S' || resposta == 's') {
-                                    System.out.print("ENTRE COM O VALOR INICIAL: ");
-                                    double depositoInicial = sc.nextDouble();
-                                    cc = new ContaCorrente(nome, cpf, rendaMensal, tipoConta, agencia, depositoInicial);
-                                } else {
-                                    cc = new ContaCorrente(nome, cpf, rendaMensal, tipoConta, agencia);
-                                }
+                                System.out.print("Escolha o Tipo de Conta: [1]-Conta Corrente, [2]-Conta Investimento, [3]-Conta Poupança: ");
+                                tipoDeConta = sc.nextInt();
 
-                                contas.add(cc);
+                                if (tipoDeConta == 1) {
+                                    ContaCorrente.numerocontas++;//Contador para toral de contas criadas
+                                    ContaCorrente cc;// Instância a classe
+                                    tipoConta = "Conta Corrente";
+
+                                    System.out.print("Deseja fazer um depósito ínicial? (S/N): ");
+                                    char resposta = sc.next().charAt(0);
+                                    if (resposta == 'S' || resposta == 's') {
+                                        System.out.print("Entre com o valor ínicial: ");
+                                        double depositoInicial = sc.nextDouble();
+                                        cc = new ContaCorrente(nome, cpf, rendaMensal, tipoConta, agencia, depositoInicial);
+                                    } else {
+                                        cc = new ContaCorrente(nome, cpf, rendaMensal, tipoConta, agencia);
+                                    }
+                                    contas.add(cc);
+                                }
+                                if (tipoDeConta == 2) {
+                                    ContaInvestimento.numerocontas++;//Contador para toral de contas criadas
+                                    ContaInvestimento ci;// Instância a classe
+                                    tipoConta = "Conta Investimentos";
+
+                                    System.out.print("Deseja fazer um depósito ínicial? (S/N): ");
+                                    char resposta = sc.next().charAt(0);
+                                    if (resposta == 'S' || resposta == 's') {
+                                        System.out.print("Entre com o valor ínicial: ");
+                                        double depositoInicial = sc.nextDouble();
+                                        ci = new ContaInvestimento(nome, cpf, rendaMensal, tipoConta, agencia, depositoInicial);
+                                    } else {
+                                        ci = new ContaInvestimento(nome, cpf, rendaMensal, tipoConta, agencia);
+                                    }
+                                    contas.add(ci);
+                                }
+                                if (tipoDeConta == 3) {
+                                    ContaPoupanca.numerocontas++;//Contador para toral de contas criadas
+                                    ContaPoupanca cp;// Instância a classe
+                                    tipoConta = "Conta Poupança";
+
+                                    System.out.print("Deseja fazer um depósito ínicial? (s/n): ");
+                                    char resposta = sc.next().charAt(0);
+                                    if (resposta == 'S' || resposta == 's') {
+                                        System.out.print("Entre com o valor ínicial: ");
+                                        double depositoInicial = sc.nextDouble();
+                                        cp = new ContaPoupanca(nome, cpf, rendaMensal, tipoConta, agencia, depositoInicial);
+                                    } else {
+                                        cp = new ContaPoupanca(nome, cpf, rendaMensal, tipoConta, agencia);
+                                    }
+                                    contas.add(cp);
+                                }
 
                                 System.out.println("Conta criada com sucesso!");
                                 System.out.println(contas);
                                 break;
                             case 2:
-                                System.out.println("ATUALIZAR CADASTRO CLIENTE");
+                                if (contas.isEmpty() == true) {
+                                    System.out.println("\nNão há contas cadastradas!");
+                                } else {
+                                    System.out.print("\nDigite o número da conta: ");
+                                    int nConta = sc.nextInt();
+                                    nConta--;
+
+                                    Conta aux = contas.get(nConta);
+                                    System.out.println("");
+                                    System.out.println("*  " + aux.getTipoConta());
+                                    System.out.println("*  Nome: " + aux.getNome());
+                                    System.out.println("*  CPF: " + aux.getCpf());
+                                    System.out.println("*  Renda Mensal: " + aux.getRendaMensal());
+                                    System.out.println("*  Agência: " + aux.getAgencia());
+                                    System.out.println("*  Conta: " + aux.getConta());
+                                    System.out.println("*  Saldo: " + aux.getSaldo());
+                                    System.out.println("------------------------------------------");
+
+                                    System.out.print("Deseja atualizar o Cadastro? (s/n): ");
+                                    char respostaAtualizar = sc.next().charAt(0);
+                                    System.out.println("");
+                                    if (respostaAtualizar == 'S' || respostaAtualizar == 's') {
+                                        System.out.print("*  Escolha o Tipo de Conta: ");
+                                        System.out.println("\n[1]-Conta Corrente\n[2]-Conta Investimento\n[3]-Conta Poupança:");
+                                        int tipoDeContaAtualizar = sc.nextInt();
+                                        boolean opcaoConta;
+                                        do {
+                                            switch (tipoDeContaAtualizar) {
+                                                case 1:
+                                                    aux.setTipoConta("Conta Corrente");
+                                                    opcaoConta = true;
+                                                    break;
+                                                case 2:
+                                                    aux.setTipoConta("Conta Investimento");
+                                                    opcaoConta = true;
+                                                    break;
+                                                case 3:
+                                                    aux.setTipoConta("Conta Poupança");
+                                                    opcaoConta = true;
+                                                    break;
+                                                default:
+                                                    System.out.println("Agência Inválida!");
+                                                    opcaoConta = false;
+                                            }
+                                        } while (opcaoConta != true);
+
+                                        System.out.print("*  Nome: ");
+                                        sc.nextLine();
+                                        aux.setNome(sc.nextLine());
+                                        System.out.print("*  Renda Mensal: ");
+                                        aux.setRendaMensal(sc.nextDouble());
+
+                                        boolean opcaoAgenciaAtualizar = false;
+                                        do {
+                                            System.out.print("*  Escolha sua Agência: [1] - Florianópolis, [2] - São José: ");
+                                            int agenciaOpt = sc.nextInt();
+                                            if (agenciaOpt == 1) {
+                                                aux.setAgencia("Florianópolis");
+                                                opcaoAgenciaAtualizar = true;
+                                            }
+                                            if (agenciaOpt == 2) {
+                                                aux.setAgencia("São José");
+                                                opcaoAgenciaAtualizar = true;
+                                            }
+                                            System.out.println("------------------------------------------");
+                                        } while (opcaoAgenciaAtualizar != true);
+                                    }
+                                }
                                 break;
                             case 3:
-                                System.out.println("EXCLUIR CADASTRO CLIENTE");
+                                if (contas.isEmpty() == true) {
+                                    System.out.println("\n*  Não há contas cadastradas!");
+                                    System.out.println("------------------------------------------");
+                                } else {
+                                    System.out.print("\n*  Digite o número da conta a ser excluida: ");
+                                    int nConta = sc.nextInt();
+                                    nConta--;
+
+                                    Conta aux = contas.get(nConta);
+                                    System.out.println("");
+                                    System.out.println("*  " + aux.getTipoConta());
+                                    System.out.println("*  Nome: " + aux.getNome());
+                                    System.out.println("*  CPF: " + aux.getCpf());
+                                    System.out.println("*  Renda Mensal: " + aux.getRendaMensal());
+                                    System.out.println("*  Agência: " + aux.getAgencia());
+                                    System.out.println("*  Conta: " + aux.getConta());
+                                    System.out.println("*  Saldo: " + aux.getSaldo());
+                                    System.out.println("------------------------------------------");
+
+                                    System.out.print("*  Deseja realmente excluir o Cadastro? (s/n): ");
+                                    char respostaAtualizar = sc.next().charAt(0);
+                                    if (respostaAtualizar == 'S' || respostaAtualizar == 's') {
+                                        contas.remove(nConta);
+                                    }
+                                    System.out.println("*  Conta Exluida com Sucesso!");
+                                    System.out.println("------------------------------------------");
+                                }
                                 break;
                             case 0:
                                 System.out.println("\nFINALIZANDO SISTEMA");
@@ -126,4 +270,8 @@ public class BancoTechDive {
             }
         } while (opcaoMenuPrincipal != 0);
     }
+
+    //Metodos de ajuda
+
+
 }//FIM

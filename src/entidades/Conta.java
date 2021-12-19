@@ -6,13 +6,15 @@ import java.util.Date;
 
 public class Conta {
 
+
     //atributos
     private String nome;
     private String cpf;
     private double rendaMensal;
-    private int tipoConta;
+    private String tipoConta;
+    public static int numerocontas = 0;//Total de contas instanciadas
     private int conta;
-    private int agencia;
+    private String agencia;
     private double saldo;
     private String data;
 
@@ -20,26 +22,26 @@ public class Conta {
     public Conta() {
     }
 
-    public Conta(String nome, String cpf, double rendaMensal, int tipoConta, int agencia) {
+    public Conta(String nome, String cpf, double rendaMensal, String tipoConta, String agencia) {
         this.nome = nome;
         this.cpf = cpf;
         this.rendaMensal = rendaMensal;
         this.tipoConta = tipoConta;
-        nConta();
         this.agencia = agencia;
         dataAtual();
+        AddNumeroConta();
     }
 
     //construtor com depósito ínicial
-    public Conta(String nome, String cpf, double rendaMensal, int tipoConta, int agencia, double depositoInicial) {
+    public Conta(String nome, String cpf, double rendaMensal, String tipoConta, String agencia, double depositoInicial) {
         this.nome = nome;
         this.cpf = cpf;
         this.rendaMensal = rendaMensal;
         this.tipoConta = tipoConta;
-        nConta();
         this.agencia = agencia;
         deposito(conta, depositoInicial);
         dataAtual();
+        AddNumeroConta();
     }
 
     //Metodos
@@ -68,12 +70,12 @@ public class Conta {
         this.rendaMensal = rendaMensal;
     }
 
-    public int getTipoConta() {
+    public String getTipoConta() {
 
         return tipoConta;
     }
 
-    public void setTipoConta(int tipoConta) {
+    public void setTipoConta(String tipoConta) {
 
         this.tipoConta = tipoConta;
     }
@@ -83,12 +85,16 @@ public class Conta {
         return conta;
     }
 
-    public int getAgencia() {
+    public void setConta(int conta) {
+        this.conta = conta;
+    }
+
+    public String getAgencia() {
 
         return agencia;
     }
 
-    public void setAgencia(int agencia) {
+    public void setAgencia(String agencia) {
 
         this.agencia = agencia;
     }
@@ -99,23 +105,36 @@ public class Conta {
     }
 
     public String getData() {
+
         return data;
     }
 
     //Metodos auxiliares
-    public void deposito(int conta, double montante) {
+    public void AddNumeroConta() {
 
-        saldo += montante;
+        setConta(numerocontas);//Passa o total de conta como número da conta... esse deu trabalho kkkkk
     }
 
     public void saque(double montante) {
 
-        saldo -= montante;
+        this.saldo -= montante;
     }
 
-    public int nConta() {
+    public void deposito(int conta, double montante) {
 
-        return conta++;
+        this.saldo += montante;
+    }
+
+    public void extrato() {
+
+    }
+
+    public void transferir() {
+
+    }
+
+    public void alterarDadosCadastrais() {
+
     }
 
     public String dataAtual() {
@@ -132,7 +151,8 @@ public class Conta {
                 ", CPF=" + cpf +
                 ", Renda Mensal=" + String.format("%.2f", rendaMensal) +
                 ", Tipo Conta=" + tipoConta +
-                ", Conta=" + conta +
+                ", Total de Contas=" + numerocontas +
+                ", Número da Conta=" + conta +
                 ", Agência=" + agencia +
                 ", Saldo=" + String.format("%.2f", saldo) +
                 ", Data=" + data +

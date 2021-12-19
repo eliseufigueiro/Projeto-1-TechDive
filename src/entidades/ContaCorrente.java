@@ -10,11 +10,11 @@ public class ContaCorrente extends Conta {
     public ContaCorrente() {
     }
 
-    public ContaCorrente(String nome, String cpf, double rendaMensal, int tipoConta, int agencia) {
+    public ContaCorrente(String nome, String cpf, double rendaMensal, String tipoConta, String agencia) {
         super(nome, cpf, rendaMensal, tipoConta, agencia);
     }
 
-    public ContaCorrente(String nome, String cpf, double rendaMensal, int tipoConta, int agencia, double depositoInicial) {
+    public ContaCorrente(String nome, String cpf, double rendaMensal, String tipoConta, String agencia, double depositoInicial) {
         super(nome, cpf, rendaMensal, tipoConta, agencia, depositoInicial);
     }
 
@@ -24,10 +24,12 @@ public class ContaCorrente extends Conta {
                 "Nome=" + getNome() + '\'' +
                 ", CPF=" + getCpf() +
                 ", Renda Mensal=" + String.format("%.2f", getRendaMensal()) +
-                ", Conta=" + getConta() +
+                ", Total de Contas=" + numerocontas +
                 ", Agência=" + getAgencia() +
+                ", Número da Conta=" + getConta() +
                 ", Saldo=" + String.format("%.2f", getSaldo()) +
                 ", Data=" + getData() +
                 "}" + "\n";
     }
+
 }

@@ -40,12 +40,10 @@ public class Menus {
 
     public void menuTransacoes() {
 
-        System.out.println("------------------------------------------");
-        System.out.println("************* BANCO TECHDIVE *************");
-        System.out.println("------------------------------------------");
-        System.out.println("[1] CADASTRO CLIENTE");
-        System.out.println("[2] TRANSAÇÕES BANCÁRIAS");
-        System.out.println("[0] SAIR");
         System.out.println("");
+        System.out.println("******************************************");
+        System.out.println("*             BANCO TECHDIVE             *");
+        System.out.println("******************************************");
+        System.out.println("*                                        *");
     }
 }
