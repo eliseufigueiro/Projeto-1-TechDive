@@ -24,8 +24,6 @@ public class BancoTechDive {
         Scanner sc = new Scanner(System.in);
         Menus menu = new Menus();
 
-        //System.out.println("Olá, Mundo");
-
         //Menu Principal
         int opcaoMenuPrincipal = 0;
         int opcaoMenuCadastro = 0;
