@@ -1,9 +1,5 @@
 package entidades;
 
-import servicos.ValidaCPF;
-
-import java.util.Scanner;
-
 public class ContaInvestimento extends Conta {
 
     public ContaInvestimento() {
